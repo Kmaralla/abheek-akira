@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Wordle for Kids</title>
+</head>
+<body>
+  <h1>Wordle Game</h1>
+  <input type="text" id="guess" maxlength="5">
+  <button onclick="makeGuess()">Guess</button>
+  <button onclick="resetGame()">Reset</button>
+  <div id="result"></div>
+
+  <script>
+    async function makeGuess() {
+      const guess = document.getElementById('guess').value;
+      const response = await fetch('/guess', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({guess})
+      });
+      const data = await response.json();
+      document.getElementById('result').innerText = data.result.join(' ');
+    }
+
+    async function resetGame() {
+      await fetch('/reset', {method: 'POST'});
+      document.getElementById('result').innerText = 'New word selected!';
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+from flask import Flask, request, jsonify, render_template
+import game_logic  # import kids' logic
+
+app = Flask(__name__)
+
+
+@app.route('/')
+def home():
+    return render_template('index.html')
+
+
+@app.route('/guess', methods=['POST'])
+def guess():
+    data = request.json
+    guess_word = data.get('guess', '')
+    result = game_logic.check_guess(guess_word)
+    return jsonify({'result': result})
+
+
+@app.route('/reset', methods=['POST'])
+def reset():
+    game_logic.reset_word()
+    return jsonify({'message': 'New word selected!'})
