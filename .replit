@@ -12,8 +12,7 @@ language = "python3"
 requiredFiles = [".replit", "replit.nix"]
 
 [deployment]
-deploymentTarget = "static"
-publicDir = "/home/runner/workspace/templates"
+deploymentTarget = "cloudrun"
 run = ["sh", "-c", "python main.py"]
 
 [[ports]]
