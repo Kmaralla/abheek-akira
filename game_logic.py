@@ -16,6 +16,8 @@ WORDS = ['apple', 'grape', 'chair', 'table', 'plant']
 # Choose a target word at random
 target_word = random.choice(WORDS)
 count = 0
+result = []
+
 
 def reset_word():
     global target_word, count
@@ -26,15 +28,38 @@ def reset_word():
 
 def check_guess(guess):
     """Compare the guess to the target word and return color-coded result."""
-    result = []
-    guess = guess.lower()
     global count
+    global result
+    if count == 0:
+        result = []
+    guess = guess.lower()
     count += 1
+
+    # Game won if guess is correct
+    if guess == target_word:
+        result.append(
+            f'<span class="letter correct">YOU WON! The word was {target_word}</span>'
+        )
+        reset_word()
+        return result
+
+
+# Game over if 6 guesses are made
+    if count >= 6:
+        result.append(
+            f'<span class="letter incorrect">GAME OVER! The word was {target_word}</span>'
+        )
+        reset_word()
+        return result
+
     for i, letter in enumerate(guess):
         if letter == target_word[i]:
-            result.append(f'<span class="letter correct">{letter.upper()}</span>')
+            result.append(
+                f'<span class="letter correct">{letter.upper()}</span>')
         elif letter in target_word:
-            result.append(f'<span class="letter partial">{letter.upper()}</span>')
+            result.append(
+                f'<span class="letter partial">{letter.upper()}</span>')
         else:
-            result.append(f'<span class="letter incorrect">{letter.upper()}</span>')
+            result.append(
+                f'<span class="letter incorrect">{letter.upper()}</span>')
     return result
