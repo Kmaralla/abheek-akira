@@ -27,3 +27,6 @@ def guess():
 def reset():
     game_logic.reset_word()
     return jsonify({'message': 'New word selected!'})
+
+if __name__ == "__main__":
+    app.run(host='0.0.0.0', port=5000, debug=True)
