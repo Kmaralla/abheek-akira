@@ -62,4 +62,6 @@ def check_guess(guess):
         else:
             result.append(
                 f'<span class="letter incorrect">{letter.upper()}</span>')
+
+    result.append('<br>')
     return result
