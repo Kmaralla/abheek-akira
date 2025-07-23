@@ -1,0 +1,189 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Wordle Game - Abheek & Akira's Fun Zone</title>
+  <style>
+    body {
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      margin: 0;
+      padding: 20px;
+      min-height: 100vh;
+      color: #333;
+    }
+    
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    }
+    
+    h1 {
+      text-align: center;
+      color: #4ecdc4;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    
+    .back-button {
+      background: #ff6b6b;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 15px;
+      cursor: pointer;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      font-weight: bold;
+      text-decoration: none;
+      display: inline-block;
+      margin-bottom: 20px;
+      transition: transform 0.2s;
+    }
+    
+    .back-button:hover {
+      transform: scale(1.05);
+    }
+    
+    .game-controls {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    
+    input[type="text"] {
+      padding: 15px;
+      font-size: 18px;
+      border: 3px solid #4ecdc4;
+      border-radius: 15px;
+      margin: 10px;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      text-align: center;
+      text-transform: uppercase;
+    }
+    
+    button {
+      background: linear-gradient(45deg, #4ecdc4, #44a08d);
+      color: white;
+      border: none;
+      padding: 15px 25px;
+      font-size: 16px;
+      border-radius: 15px;
+      cursor: pointer;
+      margin: 5px;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      font-weight: bold;
+      transition: transform 0.2s;
+    }
+    
+    button:hover {
+      transform: scale(1.05);
+    }
+    
+    .reset-btn {
+      background: linear-gradient(45deg, #ff6b6b, #ee5a52);
+    }
+    
+    .letter {
+      display: inline-block;
+      width: 50px;
+      height: 50px;
+      line-height: 50px;
+      text-align: center;
+      margin: 3px;
+      border: 3px solid #ccc;
+      border-radius: 10px;
+      font-weight: bold;
+      font-size: 24px;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+    }
+    .correct {
+      background-color: #6aaa64;
+      color: white;
+      border-color: #6aaa64;
+    }
+    .partial {
+      background-color: #c9b458;
+      color: white;
+      border-color: #c9b458;
+    }
+    .incorrect {
+      background-color: #787c7e;
+      color: white;
+      border-color: #787c7e;
+    }
+    .answered {
+      background-color: #6aaa64;
+      width: 500px;
+      color: white;
+      border-radius: 15px;
+      padding: 15px;
+      margin: 10px 0;
+      font-size: 20px;
+    }
+    .unanswered {
+      background-color: #787c7e;
+      width: 500px;
+      color: white;
+      border-radius: 15px;
+      padding: 15px;
+      margin: 10px 0;
+      font-size: 20px;
+    }
+    
+    #result {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="/" class="back-button">🏠 Back to Home</a>
+    <h1>🎯 Wordle Game by Abheek and Akira! 🎯</h1>
+    
+    <div class="game-controls">
+      <input type="text" id="guess" minlength="4" maxlength="6" placeholder="Enter your guess">
+      <br>
+      <button onclick="makeGuess()">🎮 Guess!</button>
+      <button class="reset-btn" onclick="resetGame()">🔄 New Game</button>
+    </div>
+    
+    <div id="result"></div>
+  </div>
+
+  <script>
+    async function makeGuess() {
+      const guess = document.getElementById('guess').value;
+      if (!guess) {
+        alert('Please enter a word! 😊');
+        return;
+      }
+      const response = await fetch('/guess', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({guess})
+      });
+      const data = await response.json();
+      document.getElementById('result').innerHTML = data.result.join('');
+      document.getElementById('guess').value = '';
+    }
+
+    async function resetGame() {
+      await fetch('/reset', {method: 'POST'});
+      document.getElementById('result').innerHTML = '<p style="color: #4ecdc4; font-size: 20px;">🎉 New word selected! Good luck! 🍀</p>';
+      document.getElementById('guess').value = '';
+    }
+    
+    // Allow Enter key to submit guess
+    document.getElementById('guess').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        makeGuess();
+      }
+    });
+  </script>
+</body>
+</html>
