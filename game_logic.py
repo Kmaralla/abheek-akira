@@ -4,7 +4,7 @@ import random
 ## 2. add colors (green, yellow, gray). DONE
 ## 3. gameover when six entered,a nd show answer -DONE
 ## 4. eror handle when size is not 5 -DONE
-## 5. add all the entries into lien by line , with letter backgroudn color - DONE
+## 5. add all the entries into line by line , with letter backgroudn color - DONE
 
 ## For later
 ## 5. accept input of number of wordle letters from user, (4         or 5 or 6)

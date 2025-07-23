@@ -12,7 +12,8 @@ language = "python3"
 requiredFiles = [".replit", "replit.nix"]
 
 [deployment]
-run = "flask run --host=0.0.0.0 --port=3000"
+deploymentTarget = "static"
+publicDir = "/home/runner/workspace/templates"
 
 [[ports]]
 localPort = 3000
