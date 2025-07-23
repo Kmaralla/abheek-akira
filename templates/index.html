@@ -16,7 +16,6 @@
     }
     .correct {
       background-color: #6aaa64;
-      width: 200px;
       color: white;
     }
     .partial {
@@ -25,14 +24,24 @@
     }
     .incorrect {
       background-color: #787c7e;
-      width: 200px;
       color: white;
     }
+    .answered {
+      background-color: #6aaa64;
+      width: 500px;
+      color: white;
+    }
+    .unanswered {
+      background-color: #787c7e;
+      width: 500px;
+      color: white;
+    }
+    
   </style>
 </head>
 <body>
   <h1>This is Wordle game , created by Abheek and Akira</h1>
-  <input type="text" id="guess" maxlength="5">
+  <input type="text" id="guess" minlength="4" maxlength="6" placeholder="Enter your guess">
   <button onclick="makeGuess()">Guess</button>
   <button onclick="resetGame()">Reset</button>
   <div id="result"></div>
