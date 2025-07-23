@@ -18,7 +18,9 @@ target_word = random.choice(WORDS)
 count = 0
 
 def reset_word():
+    global target_word, count
     target_word = random.choice(WORDS)
+    count = 0
     return target_word
 
 
@@ -26,12 +28,13 @@ def check_guess(guess):
     """Compare the guess to the target word and return color-coded result."""
     result = []
     guess = guess.lower()
+    global count
     count += 1
     for i, letter in enumerate(guess):
         if letter == target_word[i]:
-            result.append("🟩")
+            result.append(f'<span class="letter correct">{letter.upper()}</span>')
         elif letter in target_word:
-            result.append("🟨")
+            result.append(f'<span class="letter partial">{letter.upper()}</span>')
         else:
-            result.append("⬛")
+            result.append(f'<span class="letter incorrect">{letter.upper()}</span>')
     return result

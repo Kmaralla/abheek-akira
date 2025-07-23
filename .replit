@@ -17,3 +17,15 @@ run = "flask run --host=0.0.0.0 --port=3000"
 [[ports]]
 localPort = 3000
 externalPort = 80
+
+[workflows]
+runButton = "Run Flask App"
+
+[[workflows.workflow]]
+name = "Run Flask App"
+author = 34681206
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "flask run --host=0.0.0.0 --port=3000"
