@@ -21,8 +21,13 @@ def guess():
     data = request.json
     guess_word = data.get('guess', '')
     player_name = data.get('playerName', '')
-    result = game_logic.check_guess(guess_word)
+    result = game_logic.check_guess(guess_word, player_name)
     return jsonify({'result': result, 'score': game_logic.score, 'playerName': player_name})
+
+@app.route('/leaderboard', methods=['GET'])
+def leaderboard():
+    top_scores = game_logic.get_top_scores()
+    return jsonify({'leaderboard': top_scores})
 
 
 
