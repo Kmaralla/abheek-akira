@@ -25,6 +25,7 @@ def guess():
     return jsonify({'result': result, 'score': game_logic.score, 'playerName': player_name})
 
 
+
 @app.route('/reset', methods=['POST'])
 def reset():
     game_logic.reset_word()
