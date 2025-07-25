@@ -12,13 +12,17 @@ import random
 ## 7.get any random word from api call.(internT)
 
 # Word list
-WORDS = ['apple', 'grape', 'chair', 'table', 'plant']
-SIX_WORDS = ['apple', 'grape', 'chair', 'table', 'plant']
+WORDS = [
+    'apple', 'grape', 'chair', 'table', 'plant', 'house', 'water', 'phone',
+    'clock', 'paper', 'pizza', 'bread', 'juice', 'sugar', 'sweet', 'sauce',
+    'spoon', 'knife', 'fork', 'plate', 'glass', 'bowl', 'fork'
+]
 
 # Choose a target word at random
 target_word = random.choice(WORDS)
 count = 0
 result = []
+score = 0
 
 
 def reset_word():
@@ -32,6 +36,8 @@ def check_guess(guess):
     """Compare the guess to the target word and return color-coded result."""
     global count
     global result
+    global score
+
     if count == 0:
         print("New game started")
         result = []
@@ -43,6 +49,10 @@ def check_guess(guess):
         result.append(
             f'<span class="letter answered">YOU WON! The word was {target_word}</span>'
         )
+        score = 300 - (count - 1) * 50
+        result.append(
+            f'<span class="letter answered">Your score is {score}</span>')
+
         reset_word()
         return result
 

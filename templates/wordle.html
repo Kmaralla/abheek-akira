@@ -1,4 +1,13 @@
 
+<!-- 0. revise 4 files -->
+<!-- 1. Enter your name  , FE-->
+<!-- 2. store name(Dad) -->
+<!-- 3. Display score , FE -->
+<!-- 4.update score in  backend 300 to 0 (count , BE)-->
+<!-- 5. Display clue button , move to dictionary , FE-->
+<!-- 6. if clue is asked, reduce 50 , BE-->
+<!-- 7. Show leaderboard (Top 5 scores)  Dad-->
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -144,11 +153,17 @@
   <div class="container">
     <a href="/" class="back-button">🏠 Back to Home</a>
     <h1>🎯 Wordle Game by Abheek and Akira! 🎯</h1>
+
+
+  <div class="game-controls">
+      <input type="text" id="guess" minlength="4" maxlength="6" name_asker="Enter your name">
     
     <div class="game-controls">
       <input type="text" id="guess" minlength="4" maxlength="6" placeholder="Enter your guess">
       <br>
       <button onclick="makeGuess()">🎮 Guess!</button>
+      <button class="reset-btn" onclick="nameHolder()">🔄 New 
+Game</button>
       <button class="reset-btn" onclick="resetGame()">🔄 New Game</button>
     </div>
     
@@ -162,7 +177,7 @@
         alert('Please enter a word! 😊');
         return;
       }
-      const response = await fetch('/guess', {
+      const response = await fetch('enter, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({guess})

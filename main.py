@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify, render_template
 import game_logic  # import kids' logic
 import os
 
+
 os.environ['FLASK_APP'] = 'main.py'
 app = Flask(__name__)
 
