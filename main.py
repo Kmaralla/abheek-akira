@@ -20,8 +20,9 @@ def wordle():
 def guess():
     data = request.json
     guess_word = data.get('guess', '')
+    player_name = data.get('playerName', '')
     result = game_logic.check_guess(guess_word)
-    return jsonify({'result': result})
+    return jsonify({'result': result, 'score': game_logic.score, 'playerName': player_name})
 
 
 @app.route('/reset', methods=['POST'])
