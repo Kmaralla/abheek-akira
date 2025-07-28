@@ -2,7 +2,6 @@ from flask import Flask, request, jsonify, render_template
 import game_logic  # import kids' logic
 import os
 
-
 os.environ['FLASK_APP'] = 'main.py'
 app = Flask(__name__)
 
@@ -10,6 +9,7 @@ app = Flask(__name__)
 @app.route('/')
 def home():
     return render_template('home.html')
+
 
 @app.route('/wordle')
 def wordle():
@@ -22,7 +22,12 @@ def guess():
     guess_word = data.get('guess', '')
     player_name = data.get('playerName', '')
     result = game_logic.check_guess(guess_word, player_name)
-    return jsonify({'result': result, 'score': game_logic.score, 'playerName': player_name})
+    return jsonify({
+        'result': result,
+        'score': game_logic.score,
+        'playerName': player_name
+    })
+
 
 @app.route('/leaderboard', methods=['GET'])
 def leaderboard():
@@ -30,11 +35,17 @@ def leaderboard():
     return jsonify({'leaderboard': top_scores})
 
 
-
 @app.route('/reset', methods=['POST'])
 def reset():
     game_logic.reset_word()
     return jsonify({'message': 'New word selected!'})
+
+
+@app.route('/clue', methods=['POST'])
+def clue():
+    game_clue = game_logic.show_clue()
+    return jsonify({'clue': game_clue})
+
 
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 3000))

@@ -1,12 +1,20 @@
 
 <!-- 0. revise 4 files -->
-<!-- 1. Enter your name  , FE-->
-<!-- 2. store name(Dad) -->
-<!-- 3. Display score , FE -->
-<!-- 4.update score in  backend 300 to 0 (count , BE)-->
+<!-- 1. Enter your name  , FE DONE--> 
+<!-- 2. store name(Dad) DONE -->
+<!-- 3. Display score , FE DONE-- -->
+<!-- 4.update score in  backend 300 to 0 (count , BE) DONE---->
 <!-- 5. Display clue button , move to dictionary , FE-->
+<!-- clue logic: 
+1. clikc button similar to others
+2. onclick, call api
+3. main - cll gamelogic.showclue
+4.implement show clue
+5. WORDS[targetword]
+6. display back
+BE-->
 <!-- 6. if clue is asked, reduce 50 , BE-->
-<!-- 7. Show leaderboard (Top 5 scores)  Dad-->
+<!-- 7. Show leaderboard (Top 5 scores)  Dad DONE-->
 
 <!DOCTYPE html>
 <html>
@@ -94,6 +102,10 @@
     .reset-btn {
       background: linear-gradient(45deg, #ff6b6b, #ee5a52);
     }
+
+    .clue-btn {
+        background: linear-gradient(45deg, #006b6b, #005a52);
+      }
     
     .letter {
       display: inline-block;
@@ -170,10 +182,14 @@
     <h1>🎯 Wordle Game by Abheek and Akira! 🎯</h1>
 
     <!-- Leaderboard Section -->
-    <div class="leaderboard-section" style="background: rgba(78, 205, 196, 0.1); border-radius: 15px; padding: 20px; margin-bottom: 20px;">
+
+    <div class="leaderboard-section" style="background: rgba(78, 205, 196, 0.1); border-radius: 15px; padding: 20px; margin-bottom: 20px;">  
       <h2 style="color: #4ecdc4; text-align: center; margin-bottom: 15px;">🏆 Top Scores 🏆</h2>
       <div id="leaderboard" style="text-align: center;"></div>
     </div>
+
+
+    <div id="clue" style="text-align: center;"></div>
 
     <div class="player-info">
       <input type="text" id="playerName" placeholder="Enter your name" style="margin-bottom: 10px;">
@@ -183,8 +199,9 @@
     <div class="game-controls">
       <input type="text" id="guess" minlength="4" maxlength="6" placeholder="Enter your guess">
       <br>
-      <button onclick="makeGuess()">🎮 Guess!</button>
+      <button onclick = makeGuess()>🎮 Guess!</button>
       <button class="reset-btn" onclick="resetGame()">🔄 New Game</button>
+      <button class="clue-btn"  onclick="showClue()"> 💡 Show Clue!</button>
     </div>
     
     <div id="result"></div>
@@ -203,7 +220,7 @@
         } else {
           leaderboard.forEach((entry, index) => {
             const rank = index + 1;
-            const trophy = rank === 1 ? '🥇' : rank === 2 ? '🥈' : rank === 3 ? '🥉' : '🏅';
+           
             leaderboardHTML += `
               <div class="leaderboard-entry">
                 <span class="leaderboard-rank">${trophy} #${rank}</span> 
@@ -214,6 +231,9 @@
         }
         
         document.getElementById('leaderboard').innerHTML = leaderboardHTML;
+
+        
+        
       } catch (error) {
         console.error('Error loading leaderboard:', error);
       }
@@ -239,7 +259,7 @@
         body: JSON.stringify({guess, playerName})
       });
       const data = await response.json();
-      document.getElementById('result').innerHTML = data.result.join('');
+      document.getElemen6tById('result').innerHTML = data.result.join('');6
       document.getElementById('guess').value = '';
       
       // Update score display
@@ -252,11 +272,21 @@
 
     async function resetGame() {
       await fetch('/reset', {method: 'POST'});
+      
       document.getElementById('result').innerHTML = '<p style="color: #4ecdc4; font-size: 20px;">🎉 New word selected! Good luck! 🍀</p>';
       document.getElementById('guess').value = '';
       document.getElementById('scoreDisplay').innerHTML = '';
     }
-    
+
+      
+    async function showClue() {
+      const response = await fetch('/clue', {method: 'POST'});
+
+      const data = await response.json();
+      const clueHTML = ${data.clue}
+      document.getElementById('clue').innerHTML = clueHTML;
+    }
+
     // Allow Enter key to submit guess
     document.getElementById('guess').addEventListener('keypress', function(e) {
       if (e.key === 'Enter') {

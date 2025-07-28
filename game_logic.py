@@ -15,20 +15,40 @@ import os
 ## 7.get any random word from api call.(internT)
 
 # Word list
-WORDS = [
-    'apple', 'grape', 'chair', 'table', 'plant', 'house', 'water', 'phone',
-    'clock', 'paper', 'pizza', 'bread', 'juice', 'sugar', 'sweet', 'sauce',
-    'spoon', 'knife', 'fork', 'plate', 'glass', 'bowl', 'fork'
-]
-
+WORDS = {
+    "apple": "Something you eat and the brand of a laptop",
+    "grape": "A purple fruit that sometimes is green ",
+    'chair': 'Something you sit on',
+    'table':
+    'Something that you can put things on while you        are sitting ',
+    'plant': 'related to greenery',
+    'house': 'What you live in',
+    'water': 'Something you drink',
+    'phone': 'A device you talk through',
+    'clock': 'Something which tells the time',
+    'paper': 'Something you write on',
+    'pizza': 'Something you eat which has cheese',
+    'bread': 'Something which is used to make sandwhiches',
+    'juice': 'Something you drink which has natural flavor(fruits)',
+    'sugar': 'A ingriedient for sweets(it makes things              sweet)',
+    'sweet': 'Something that usually has a lot of sugar',
+    'sauce': 'Something which you may use for     dressing',
+    'spoon': 'A utensile to eat',
+    'knife': 'A utensile to cut',
+    'plate': 'Something you eat on',
+    'glass': 'Something you drink in',
+}
 # Choose a target word at random
-target_word = random.choice(WORDS)
+words_keys = list(WORDS.keys())
+target_word = random.choice(words_keys)
+
 count = 0
 result = []
 score = 0
 
 # Leaderboard file
 LEADERBOARD_FILE = 'leaderboard.json'
+
 
 def load_leaderboard():
     """Load leaderboard from file"""
@@ -40,44 +60,55 @@ def load_leaderboard():
             return []
     return []
 
+
 def save_leaderboard(leaderboard):
     """Save leaderboard to file"""
     with open(LEADERBOARD_FILE, 'w') as f:
         json.dump(leaderboard, f)
 
+
 def update_leaderboard(player_name, player_score):
     """Update leaderboard with new score"""
     leaderboard = load_leaderboard()
-    
+
     # Add new score
     leaderboard.append({'name': player_name, 'score': player_score})
-    
+
     # Sort by score (highest first)
     leaderboard.sort(key=lambda x: x['score'], reverse=True)
-    
-    # Keep only top 5
-    leaderboard = leaderboard[:5]
-    
+
+    # Keep only top 10
+    leaderboard = leaderboard[:10]
+
     save_leaderboard(leaderboard)
     return leaderboard
 
+
 def get_top_scores():
-    """Get top 5 scores for display"""
+    """Get top 10 scores for display"""
     return load_leaderboard()
 
 
 def reset_word():
     global target_word, count
-    target_word = random.choice(WORDS)
+    target_word = random.choice(list(WORDS.keys()))
     count = 0
     return target_word
 
 
+# game_logic.py
+def show_clue():
+    return WORDS[target_word]
+
+
 def check_guess(guess, player_name=''):
+    print("inside guess target word is" + target_word)
     """Compare the guess to the target word and return color-coded result."""
     global count
     global result
     global score
+
+    print("target world is" + target_word)
 
     if count == 0:
         print("New game started")
