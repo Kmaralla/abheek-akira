@@ -192,6 +192,7 @@ BE-->
 
     <div class="player-info">
       <input type="text" id="playerName" placeholder="Enter your name" style="margin-bottom: 10px;">
+      <div id="rank" style="font-size: 20px; color: #4ecdc4; font-weight: bold; margin-bottom: 15px;"></div>
       <div id="scoreDisplay" style="font-size: 20px; color: #4ecdc4; font-weight: bold; margin-bottom: 15px;"></div>
     </div>
     
@@ -210,7 +211,17 @@ BE-->
   <script>
     async function loadLeaderboard() {
       try {
-        const response = await fetch('/leaderboard');
+        
+        if (!playerName) {
+          alert('Please enter your name first! 😊');
+          return;
+        }
+        
+        const response = await fetch('/leaderboard',  {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({playerName})
+        });
         const data = await response.json();
         const leaderboard = data.leaderboard;
         
@@ -233,6 +244,7 @@ BE-->
         
         document.getElementById('leaderboard').innerHTML = leaderboardHTML;
 
+        document.getElementById('rank').innerHTML = `Your overall rank is  ${data.rank}`;
         
         
       } catch (error) {
@@ -277,6 +289,8 @@ BE-->
       document.getElementById('result').innerHTML = '<p style="color: #4ecdc4; font-size: 20px;">🎉 New word selected! Good luck! 🍀</p>';
       document.getElementById('guess').value = '';
       document.getElementById('scoreDisplay').innerHTML = '';
+      document.getElementById('clue').innerHTML = '';
+
     }
 
       

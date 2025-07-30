@@ -60,6 +60,22 @@ def load_leaderboard():
     return []
 
 
+def get_player_rank(player_name):
+    """Get the rank of a specific player"""
+    leaderboard = load_leaderboard()
+
+    # Sort by score (highest first) to ensure correct ranking
+    leaderboard.sort(key=lambda x: x['score'], reverse=True)
+
+    # Find player and return their rank (1-based)
+    for i, player in enumerate(leaderboard):
+        if player['name'] == player_name:
+            return i + 1  # +1 because rank starts at 1, not 0
+
+    # Player not found
+    return None
+
+
 def save_leaderboard(leaderboard):
     """Save leaderboard to file"""
     with open(LEADERBOARD_FILE, 'w') as f:
@@ -70,13 +86,21 @@ def update_leaderboard(player_name, player_score):
     """Update leaderboard with new score"""
     leaderboard = load_leaderboard()
 
-    # Add new score
-    leaderboard.append({'name': player_name, 'score': player_score})
+    player_found = False
+    for player in leaderboard:
+        if player['name'] == player_name:
+            player['score'] = player['score'] + player_score
+            player_found = True
+            break
+
+    if not player_found:
+        # Add new score
+        leaderboard.append({'name': player_name, 'score': player_score})
 
     # Sort by score (highest first)
     leaderboard.sort(key=lambda x: x['score'], reverse=True)
 
-    # Keep only top 10
+    # Keep only top 1000
     leaderboard = leaderboard[:1000]
 
     save_leaderboard(leaderboard)
@@ -134,7 +158,8 @@ def check_guess(guess, player_name=''):
         )
         score = score + 300 - (count - 1) * 50
         result.append(
-            f'<span class="letter answered">Your score is {score}</span>')
+            f'<span class="letter answered">Your current score is {score}</span>'
+        )
 
         # Update leaderboard if player name is provided
         if player_name:

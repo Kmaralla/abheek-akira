@@ -29,10 +29,18 @@ def guess():
     })
 
 
-@app.route('/leaderboard', methods=['GET'])
+@app.route('/leaderboard', methods=['POST'])
 def leaderboard():
+    data = request.json
     top_scores = game_logic.get_top_scores()
-    return jsonify({'leaderboard': top_scores})
+    player_name = data.get('playerName', '')
+    print("player name is" + player_name)
+    return jsonify({
+        'leaderboard':
+        top_scores,
+        'rank':
+        game_logic.get_player_rank(player_name) or '"Not ranked"'
+    })
 
 
 @app.route('/reset', methods=['POST'])
