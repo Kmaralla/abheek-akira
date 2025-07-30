@@ -295,6 +295,11 @@ BE-->
       document.getElementById('scoreDisplay').innerHTML = '';
       document.getElementById('clue').innerHTML = '';
 
+      // Re-enable the clue button for the new game
+      const clueButton = document.querySelector('.clue-btn');
+      clueButton.disabled = false;
+      clueButton.style.opacity = '1';
+      clueButton.style.cursor = 'pointer';
     }
 
       
@@ -315,6 +320,12 @@ BE-->
       const data = await response.json();
       const clueHTML = `💡 Clue: ${data.clue}`;
       document.getElementById('clue').innerHTML = clueHTML;
+      
+      // Disable the clue button after it's used
+      const clueButton = document.querySelector('.clue-btn');
+      clueButton.disabled = true;
+      clueButton.style.opacity = '0.5';
+      clueButton.style.cursor = 'not-allowed';
       
       // Update score display
       if (data.score !== undefined) {
