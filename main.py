@@ -43,8 +43,14 @@ def reset():
 
 @app.route('/clue', methods=['POST'])
 def clue():
+    data = request.json
+    player_name = data.get('playerName', '')
     game_clue = game_logic.show_clue()
-    return jsonify({'clue': game_clue})
+    return jsonify({
+        'clue': game_clue,
+        'score': game_logic.score,
+        'playerName': player_name
+    })
 
 
 if __name__ == "__main__":

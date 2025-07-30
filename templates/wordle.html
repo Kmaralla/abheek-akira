@@ -281,11 +281,27 @@ BE-->
 
       
     async function showClue() {
-      const response = await fetch('/clue', {method: 'POST'});
+      const playerName = document.getElementById('playerName').value;
+      
+      if (!playerName) {
+        alert('Please enter your name first! 😊');
+        return;
+      }
+      
+      const response = await fetch('/clue', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({playerName})
+      });
 
       const data = await response.json();
       const clueHTML = `💡 Clue: ${data.clue}`;
       document.getElementById('clue').innerHTML = clueHTML;
+      
+      // Update score display
+      if (data.score !== undefined) {
+        document.getElementById('scoreDisplay').innerHTML = `🎯 ${playerName}'s Score: ${data.score}`;
+      }
     }
 
     // Allow Enter key to submit guess
