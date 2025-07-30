@@ -184,7 +184,7 @@ BE-->
     <!-- Leaderboard Section -->
 
     <div class="leaderboard-section" style="background: rgba(78, 205, 196, 0.1); border-radius: 15px; padding: 20px; margin-bottom: 20px;">  
-      <h2 style="color: #4ecdc4; text-align: center; margin-bottom: 15px;">🏆 Top Scores 🏆</h2>
+      <h2 style="color: #4ecdc4; text-align: center; margin-bottom: 15px;">🏆 Overall Top Scores 🏆</h2>
       <div id="leaderboard" style="text-align: center;"></div>
     </div>
 
@@ -245,7 +245,7 @@ BE-->
         
         document.getElementById('leaderboard').innerHTML = leaderboardHTML;
 
-        const rankHTML = `💡 Your overall Rank: ${data.clue}`;
+        const rankHTML = `💡 Your overall Rank: ${data.rank}`;
 
         document.getElementById('rank').innerHTML = rankHTML;
         
@@ -281,7 +281,7 @@ BE-->
       
       // Update score display
       if (data.score !== undefined) {
-        document.getElementById('scoreDisplay').innerHTML = `🎯 ${playerName}'s Score: ${data.score}`;
+        document.getElementById('scoreDisplay').innerHTML = `🎯 ${playerName}'s current game score: ${data.score}`;
         // Reload leaderboard after a successful game
         loadLeaderboard();
       }

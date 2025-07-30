@@ -170,8 +170,8 @@ def check_guess(guess, player_name=''):
         return result
 
 
-# Game over if 6 guesses are made
-    if count >= 6:
+# Game over if 5 guesses are made
+    if count >= 5:
         result.append(
             f'<span class="letter unanswered">GAME OVER! The word was {target_word}</span>'
         )
