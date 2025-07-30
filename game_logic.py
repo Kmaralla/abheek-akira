@@ -61,6 +61,7 @@ def load_leaderboard():
 
 
 def get_player_rank(player_name):
+    print("inside get_player_rank" + player_name)
     """Get the rank of a specific player"""
     leaderboard = load_leaderboard()
 
