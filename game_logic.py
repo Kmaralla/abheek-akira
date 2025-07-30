@@ -90,9 +90,10 @@ def get_top_scores():
 
 
 def reset_word():
-    global target_word, count
+    global target_word, count, score
     target_word = random.choice(list(WORDS.keys()))
     count = 0
+    score = 0  # Reset score when new game starts
     return target_word
 
 
@@ -118,6 +119,14 @@ def check_guess(guess, player_name=''):
         result = []
     guess = guess.lower()
     count += 1
+
+    # Validate guess length
+    if len(guess) != len(target_word):
+        result.append(
+            f'<span class="letter unanswered">Please enter a {len(target_word)}-letter word!</span>'
+        )
+        count -= 1  # Don't count invalid guesses
+        return result
 
     # Game won if guess is correct
     if guess == target_word:
