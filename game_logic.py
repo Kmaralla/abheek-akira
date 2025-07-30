@@ -19,8 +19,7 @@ WORDS = {
     "apple": "Something you eat and the brand of a laptop",
     "grape": "A purple fruit that sometimes is green ",
     'chair': 'Something you sit on',
-    'table':
-    'Something that you can put things on while you        are sitting ',
+    'table': 'Something that you can put things on while you are sitting ',
     'plant': 'related to greenery',
     'house': 'What you live in',
     'water': 'Something you drink',
@@ -78,7 +77,7 @@ def update_leaderboard(player_name, player_score):
     leaderboard.sort(key=lambda x: x['score'], reverse=True)
 
     # Keep only top 10
-    leaderboard = leaderboard[:10]
+    leaderboard = leaderboard[:1000]
 
     save_leaderboard(leaderboard)
     return leaderboard
@@ -93,7 +92,6 @@ def reset_word():
     global target_word, count, score
     target_word = random.choice(list(WORDS.keys()))
     count = 0
-    score = 0  # Reset score when new game starts
     return target_word
 
 
@@ -101,7 +99,7 @@ def reset_word():
 def show_clue():
     global score
     print("inside clue target word is" + target_word)
-    score = score - 500
+    score = score - 100  # Deduct 100 points for using a clue
     return WORDS[target_word]
 
 
@@ -113,8 +111,8 @@ def check_guess(guess, player_name=''):
     global score
 
     print("target world is" + target_word)
-
     if count == 0:
+        score = 0  # Initialize score for new game
         print("New game started")
         result = []
     guess = guess.lower()
@@ -133,7 +131,7 @@ def check_guess(guess, player_name=''):
         result.append(
             f'<span class="letter answered">YOU WON! The word was {target_word}</span>'
         )
-        score = 300 - (count - 1) * 50
+        score = score + 300 - (count - 1) * 50
         result.append(
             f'<span class="letter answered">Your score is {score}</span>')
 
