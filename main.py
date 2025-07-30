@@ -41,8 +41,10 @@ def leaderboard():
     player_name = data.get('playerName', '')
     print("player name is " + str(player_name))
     return jsonify({
-        'leaderboard': top_scores,
-        'rank': game_logic.get_player_rank(player_name) or "Not ranked"
+        'leaderboard':
+        top_scores,
+        'rank':
+        game_logic.get_player_rank(player_name) or "Not ranked"
     })
 
 
