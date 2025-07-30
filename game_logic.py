@@ -98,6 +98,9 @@ def reset_word():
 
 # game_logic.py
 def show_clue():
+    global score
+    print("inside clue target word is" + target_word)
+    score = score - 500
     return WORDS[target_word]
 
 
