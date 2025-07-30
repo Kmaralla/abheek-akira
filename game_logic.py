@@ -155,8 +155,10 @@ def check_guess(guess, player_name=''):
     # Game won if guess is correct
     if guess == target_word:
         result.append(
-            f'<span class="letter answered">YOU WON! The word was {target_word}</span>'
+            f'<span class="letter answered">YOU WON! The word was {target_word}) </span>'
         )
+        result.append(
+            f'<span class="letter answered">Level 2 COMING SOON :)</span>')
         score = score + 300 - (count - 1) * 50
         result.append(
             f'<span class="letter answered">Your current score is {score}</span>'
