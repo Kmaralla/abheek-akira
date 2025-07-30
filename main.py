@@ -39,7 +39,6 @@ def leaderboard():
 
     top_scores = game_logic.get_top_scores()
     player_name = data.get('playerName', '')
-    print("player name is " + str(player_name))
     return jsonify({
         'leaderboard':
         top_scores,

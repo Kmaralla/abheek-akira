@@ -211,7 +211,7 @@ BE-->
   <script>
     async function loadLeaderboard() {
       try {
-        
+          const playerName = document.getElementById('playerName').value;
         if (!playerName) {
           alert('Please enter your name first! 😊');
           return;
@@ -263,6 +263,7 @@ BE-->
         alert('Please enter your name first! 😊');
         return;
       }
+      loadLeaderboard();
       
       if (!guess) {
         alert('Please enter a word! 😊');
@@ -329,7 +330,7 @@ BE-->
     });
     
     // Load leaderboard when page loads
-    window.addEventListener('load', loadLeaderboard);
+    // window.addEventListener('load', loadLeaderboard);
   </script>
 </body>
 </html>
