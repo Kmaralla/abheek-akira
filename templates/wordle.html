@@ -38,20 +38,33 @@ BE-->
       box-sizing: border-box;
     }
 
+    .leaderboard-container {
+      flex: 1;
+      min-width: 280px;
+      max-width: 320px;
+      background: rgba(78, 205, 196, 0.1);
+      padding: 20px;
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      height: calc(100vh - 30px);
+      overflow-y: auto;
+      position: sticky;
+      top: 0;
+    }
+
     .game-container {
-      flex: 3;
+      flex: 2;
       background: rgba(255, 255, 255, 0.95);
       padding: 25px;
       border-radius: 20px;
       box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
       overflow-y: auto;
-      max-width: calc(100vw - 350px);
     }
 
     .instructions-container {
       flex: 1;
-      min-width: 320px;
-      max-width: 350px;
+      min-width: 280px;
+      max-width: 320px;
       background: rgba(255, 255, 255, 0.9);
       padding: 20px;
       border-radius: 20px;
@@ -201,7 +214,7 @@ BE-->
       font-size: 16px;
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: 1024px) {
       body {
         overflow: auto;
         height: auto;
@@ -215,6 +228,15 @@ BE-->
         padding: 10px;
       }
 
+      .leaderboard-container {
+        position: static;
+        order: -1;
+        height: auto;
+        min-width: auto;
+        max-width: 100%;
+        margin-bottom: 15px;
+      }
+
       .game-container {
         max-width: 100%;
         margin-bottom: 15px;
@@ -222,7 +244,6 @@ BE-->
 
       .instructions-container {
         position: static;
-        order: -1;
         height: auto;
         min-width: auto;
         max-width: 100%;
@@ -233,16 +254,14 @@ BE-->
 </head>
 <body>
   <div class="main-layout">
+  <div class="leaderboard-container">
+    <h2 style="color: #4ecdc4; text-align: center; margin-bottom: 15px;">🏆 Overall Top Scores 🏆</h2>
+    <div id="leaderboard" style="text-align: center;"></div>
+  </div>
+
   <div class="game-container">
     <a href="/" class="back-button">🏠 Back to Home</a>
     <h1>🎯 Wordle Game by Abheek and Akira! 🎯</h1>
-
-    <!-- Leaderboard Section -->
-
-    <div class="leaderboard-section" style="background: rgba(78, 205, 196, 0.1); border-radius: 15px; padding: 20px; margin-bottom: 20px;">  
-      <h2 style="color: #4ecdc4; text-align: center; margin-bottom: 15px;">🏆 Overall Top Scores 🏆</h2>
-      <div id="leaderboard" style="text-align: center;"></div>
-    </div>
 
 
 
