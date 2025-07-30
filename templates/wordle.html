@@ -199,7 +199,7 @@ BE-->
     <div class="game-controls">
       <input type="text" id="guess" minlength="4" maxlength="6" placeholder="Enter your guess">
       <br>
-      <button onclick = makeGuess()>🎮 Guess!</button>
+      <button onclick="makeGuess()">🎮 Guess!</button>
       <button class="reset-btn" onclick="resetGame()">🔄 New Game</button>
       <button class="clue-btn"  onclick="showClue()"> 💡 Show Clue!(100 points will be deducted)</button>
       <div id="clue" style="font-size: 18px; color: #4ecdc4; font-weight: bold; margin-top: 15px;"></div>
@@ -258,6 +258,8 @@ BE-->
     async function makeGuess() {
       const guess = document.getElementById('guess').value;
       const playerName = document.getElementById('playerName').value;
+      const guessInput = document.getElementById('guess');
+      const playerNameInput = document.getElementById('playerName');
       
       if (!playerName) {
         alert('Please enter your name first! 😊');
@@ -270,6 +272,10 @@ BE-->
         return;
       }
       
+      // Disable inputs once game starts
+      guessInput.disabled = true;
+      playerNameInput.disabled = true;
+      
       const response = await fetch('/guess', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
@@ -278,6 +284,9 @@ BE-->
       const data = await response.json();
       document.getElementById('result').innerHTML = data.result.join('');
       document.getElementById('guess').value = '';
+      
+      // Re-enable guess input for next guess, but keep player name disabled
+      guessInput.disabled = false;
       
       // Update score display
       if (data.score !== undefined) {
@@ -294,6 +303,10 @@ BE-->
       document.getElementById('guess').value = '';
       document.getElementById('scoreDisplay').innerHTML = '';
       document.getElementById('clue').innerHTML = '';
+
+      // Re-enable inputs for new game
+      document.getElementById('guess').disabled = false;
+      document.getElementById('playerName').disabled = false;
 
       // Re-enable the clue button for the new game
       const clueButton = document.querySelector('.clue-btn');
