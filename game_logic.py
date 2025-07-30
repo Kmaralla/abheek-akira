@@ -85,7 +85,8 @@ def update_leaderboard(player_name, player_score):
 
 def get_top_scores():
     """Get top 10 scores for display"""
-    return load_leaderboard()
+    leaderboard = load_leaderboard()
+    return leaderboard[:10]  # Return only top 10 scores
 
 
 def reset_word():
