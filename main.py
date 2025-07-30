@@ -19,6 +19,8 @@ def wordle():
 @app.route('/guess', methods=['POST'])
 def guess():
     data = request.json
+    if data is None:
+        return jsonify({'error': 'Invalid or missing JSON payload'}), 400
     guess_word = data.get('guess', '')
     player_name = data.get('playerName', '')
     result = game_logic.check_guess(guess_word, player_name)
@@ -32,6 +34,8 @@ def guess():
 @app.route('/leaderboard', methods=['POST'])
 def leaderboard():
     data = request.json
+    if data is None:
+        return jsonify({'error': 'Invalid or missing JSON payload'}), 400
     top_scores = game_logic.get_top_scores()
     player_name = data.get('playerName', '')
     print("player name is" + player_name)

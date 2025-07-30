@@ -222,6 +222,7 @@ BE-->
           headers: {'Content-Type': 'application/json'},
           body: JSON.stringify({playerName})
         });
+        
         const data = await response.json();
         const leaderboard = data.leaderboard;
         
@@ -244,7 +245,9 @@ BE-->
         
         document.getElementById('leaderboard').innerHTML = leaderboardHTML;
 
-        document.getElementById('rank').innerHTML = `Your overall rank is  ${data.rank}`;
+        const rankHTML = `💡 Your overall Rank: ${data.clue}`;
+
+        document.getElementById('rank').innerHTML = rankHTML;
         
         
       } catch (error) {
