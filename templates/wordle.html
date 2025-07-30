@@ -24,31 +24,45 @@ BE-->
       font-family: 'Comic Sans MS', cursive, sans-serif;
       background: linear-gradient(135deg, #667eea, #764ba2);
       margin: 0;
-      padding: 20px;
-      min-height: 100vh;
+      padding: 0;
+      height: 100vh;
       color: #333;
-      display: flex; /* Use flexbox to arrange content side by side */
+      overflow: hidden;
     }
 
-    .container {
-      max-width: 600px;
-      margin: 0 auto;
+    .main-layout {
+      display: flex;
+      gap: 15px;
+      height: 100vh;
+      padding: 15px;
+      box-sizing: border-box;
+    }
+
+    .game-container {
+      flex: 3;
       background: rgba(255, 255, 255, 0.95);
-      padding: 30px;
+      padding: 25px;
       border-radius: 20px;
       box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-      max-width: 1000px;
-      flex: 2; /* Take up 2/3 of the available space */
+      overflow-y: auto;
+      max-width: calc(100vw - 350px);
     }
 
-    .instructions {
-      flex: 1; /* Take up 1/3 of the available space */
+    .instructions-container {
+      flex: 1;
+      min-width: 320px;
+      max-width: 350px;
+      background: rgba(255, 255, 255, 0.9);
       padding: 20px;
-      background: rgba(255, 255, 255, 0.95);
       border-radius: 20px;
       box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-      margin-left: 60px;
-      max-width: 300px;
+      height: calc(100vh - 30px);
+      overflow-y: auto;
+      position: sticky;
+      top: 0;
+    }
+    .container {
+      /* Old container styles removed - now using game-container */
     }
 
     h1 {
@@ -186,11 +200,40 @@ BE-->
       color: #ff6b6b;
       font-size: 16px;
     }
+
+    @media (max-width: 768px) {
+      body {
+        overflow: auto;
+        height: auto;
+        min-height: 100vh;
+      }
+
+      .main-layout {
+        flex-direction: column;
+        height: auto;
+        min-height: 100vh;
+        padding: 10px;
+      }
+
+      .game-container {
+        max-width: 100%;
+        margin-bottom: 15px;
+      }
+
+      .instructions-container {
+        position: static;
+        order: -1;
+        height: auto;
+        min-width: auto;
+        max-width: 100%;
+        margin-bottom: 15px;
+      }
+    }
   </style>
 </head>
 <body>
-  <div style="display: flex;">
-  <div class="container">
+  <div class="main-layout">
+  <div class="game-container">
     <a href="/" class="back-button">🏠 Back to Home</a>
     <h1>🎯 Wordle Game by Abheek and Akira! 🎯</h1>
 
@@ -221,7 +264,7 @@ BE-->
     <div id="result"></div>
   </div>
 
-  <div class="instructions">
+  <div class="instructions-container">
       <h2>How to Play</h2>
       <ol>
         <li>Each guess attempt reduces your score by 300 points.</li>
