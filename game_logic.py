@@ -158,7 +158,7 @@ def check_guess(guess, player_name=''):
             f'<span class="letter answered">YOU WON! The word was {target_word}) </span>'
         )
         result.append(
-            f'<span class="letter answered">Level 2 COMING SOON :)</span>')
+            f'<span class="letter answered">Level 2️⃣ COMING SOON :)</span>')
         score = score + 300 - (count - 1) * 50
         result.append(
             f'<span class="letter answered">Your current score is {score}</span>'
